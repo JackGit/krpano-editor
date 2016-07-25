@@ -1,3 +1,9 @@
+var Vue = require('vue');
+var VueTouch = require('vue-touch');
+var VueKrpano = require('./vue-krpano.js');
+
+Vue.use(VueTouch);
+
 function krpanoplugin () {
     "use strict";
     var local = this;
@@ -7,24 +13,23 @@ function krpanoplugin () {
     local.registerplugin = function (krpanoInterface, pluginPath, pluginObject) {
         console.log('register plugin');
 
+        Vue.use(VueKrpano, {
+            krpanoInterface: krpanoInterface,
+            krpanoPlugin: pluginObject
+        });
+
         krpano = krpanoInterface;
         plugin = pluginObject;
 
-        plugin.registercontentsize(krpano.get('stagewidth'), krpano.get('stageheight'));
+        plugin.registercontentsize(krpano.get('stagewidth'), krpano.get('stageheight') * 0.1);
 
-        var text = document.createElement("div");
-        text.style.cssText = "width:100%;height:10%;"+
-            "display:flex;color:white;background:rgba(10,50,100,0.5);"+
-            "align-items:center;justify-content:center;text-align:center;";
-        text.innerHTML = "HTML5<br>TEST PLUGIN<br>click me";
-
-        // the plugin 'sprite' variable is the internal html element of the plugin
-        plugin.sprite.appendChild(text);
-
-        plugin.onclick = 'js(alert(123))'
-        text.addEventListener('click', function () {
-            alert('click text, not just plugin')
-        })
+        plugin.sprite.appendChild(document.createElement('app'));
+        new Vue({
+            el: plugin.sprite,
+            components: {
+                app: require('./components/com.vue')
+            }
+        });
 
     };
 
@@ -39,4 +44,4 @@ function krpanoplugin () {
 
 }
 
-// module.exports = krpanoplugin;
+module.exports = window.krpanoplugin = krpanoplugin;

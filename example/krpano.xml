@@ -6,5 +6,5 @@
 	<!-- view/fov settings -->
 	<view hlookat="0" vlookat="0" fovtype="VFOV" fov="90" fovmin="30" fovmax="150" />
 
-	<plugin url="../src/krpano-editor.js" name="test"/>
+	<plugin url="../dist/krpano-editor.min.js" name="test"/>
 </krpano>
