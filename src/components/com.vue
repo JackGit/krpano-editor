@@ -39,9 +39,16 @@
 
         methods: {
             handleAddHotspot: function (e) {
-                alert('click');
-                addHotspot('hs1');
 
+                this.$krShell.addPolygonHotspot('mypoly', {
+                    fillalpha: 0.25,
+                    borderalpha: 0.50,
+                    points: [
+                        {ath: -10, atv: -10},
+                        {ath: 0, atv: 5},
+                        {ath: 10, atv: 10}
+                    ]
+                });
             }
         }
     };
