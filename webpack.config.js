@@ -10,7 +10,7 @@ module.exports = {
         path: path.resolve(__dirname, './dist'),
         filename: 'krpano-editor.min.js'
     },
-    // devtool: 'source-map',
+    devtool: 'source-map',
     module: {
         loaders: [{
             test: /\.vue$/,
